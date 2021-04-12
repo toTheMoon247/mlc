@@ -21,3 +21,5 @@ This is to handle json objects easily
 TODO
 
 ### hash passwords ###
+
+### genrating jason-web-token ###
