@@ -7,3 +7,17 @@
 
 2. Create file index.js
 
+### Creating the user model ###
+
+1. creating the schema for the user model using mongoose 
+2. creating the user router. In the file create the validateUser method
+
+### install lodash ###
+
+This is to handle json objects easily
+
+### install joi password complexity ###
+
+TODO
+
+### hash passwords ###
