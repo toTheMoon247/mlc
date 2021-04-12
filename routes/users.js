@@ -1,5 +1,6 @@
 const _ = require('lodash');
 
+const bcrypt = require('bcrypt');
 const {User, validate} = require('../models/user');
 const mongoose = require('mongoose');
 const express = require('express');
@@ -19,7 +20,11 @@ router.post('/', async(req, res) => {
 	
 	// if its valid --> update the db
 	user = new User(_.pick(req.body, ['name', 'email', 'password']));
-	
+
+	// hash user password
+	const salt = await bcrypt.genSalt(10); // 10 = the default number of rounds to generate salt.
+	user.password = await bcrypt.hash(user.password, salt);
+
 	await user.save();
 	// we choose only the fields we want. we don't want to pick password.
 	user = _.pick(user, ['_id', 'name', 'email']);
