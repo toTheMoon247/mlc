@@ -1,6 +1,7 @@
 ### Setting the environment ###
 
 1. Install express
+
 ```$ npm init --yes```
 ```npm i express```
 
