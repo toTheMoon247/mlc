@@ -1,5 +1,8 @@
+
 const _ = require('lodash');
 
+const jwt = require('jsonwebtoken');
+const config = require('config');
 const bcrypt = require('bcrypt');
 const {User, validate} = require('../models/user');
 const mongoose = require('mongoose');
@@ -27,8 +30,11 @@ router.post('/', async(req, res) => {
 
 	await user.save();
 	// we choose only the fields we want. we don't want to pick password.
+	const token = jwt.sign({ _id: user._id }, config.get("jwtPrivateKey"));
 	user = _.pick(user, ['_id', 'name', 'email']);
-	res.send(user);
+	
+	// we send the jwt in the header and the user details in the body
+	res.header('x-auth-token', token).send(user);
 
 });
 
