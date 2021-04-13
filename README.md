@@ -23,3 +23,7 @@ TODO
 ### hash passwords ###
 
 ### genrating jason-web-token ###
+
+### install config module and create config file ###
+
+```npm i config@1.29.4```

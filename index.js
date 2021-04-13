@@ -1,9 +1,16 @@
+const config = require('config');
 const mongoose =  require('mongoose');
 const Joi = require('joi');
 const users = require('./routes/users');
 const auth = require('./routes/auth');
 const express = require('express');
 const app = express();
+
+// if jwtPrivateKey environment variable is not set we would like exit the app. otherwise the app will crush.
+if (!config.get('jwtPrivateKey')) {
+	console.error('FATAL ERROR: jwtPrivateKey environment variable is not defined. This app will now shut down...')
+	process.exit(1);
+} 
 
 mongoose.connect('mongodb://localhost/mlc')
 	.then(() => console.log('connect to mongodb...'))
