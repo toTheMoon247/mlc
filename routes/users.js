@@ -29,10 +29,10 @@ router.post('/', async(req, res) => {
 	user.password = await bcrypt.hash(user.password, salt);
 
 	await user.save();
-	// we choose only the fields we want. we don't want to pick password.
-	const token = jwt.sign({ _id: user._id }, config.get("jwtPrivateKey"));
-	user = _.pick(user, ['_id', 'name', 'email']);
+	const token = user.generateAuthToken();
 	
+	// we choose only the fields we want. we don't want to pick password.
+	user = _.pick(user, ['_id', 'name', 'email']);
 	// we send the jwt in the header and the user details in the body
 	res.header('x-auth-token', token).send(user);
 

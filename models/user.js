@@ -1,7 +1,8 @@
 // we will use joi for validation
 const Joi = require('joi');
 const mongoose = require('mongoose');
-
+const config = require('config');
+const jwt = require('jsonwebtoken');
 const userSchema = new mongoose.Schema({
 	name: {
 		type: String,
@@ -23,6 +24,13 @@ const userSchema = new mongoose.Schema({
 		maxlength: 1024,
 	}
 });
+
+// we set it in a function so in the future we can add payload if we want. 
+// user model should generate and handle this. The user model is the information expert for this issue.
+userSchema.methods.generateAuthToken = function() {
+	const token = jwt.sign({ _id: this._id }, config.get("jwtPrivateKey"));
+	return token;
+}
 
 // we compile a user model based on mongoose schema. we create a user class based on the user model 
 const User = mongoose.model('User', userSchema);
