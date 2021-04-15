@@ -32,7 +32,7 @@ router.post('/', async(req, res) => {
 		return res.status(400).send('user already registered');
 	
 	// if its valid --> update the db
-	user = new User(_.pick(req.body, ['name', 'email', 'password']));
+	user = new User(_.pick(req.body, ['firstName', 'lastName', 'birthDate', 'email', 'password']));
 
 	// hash user password
 	const salt = await bcrypt.genSalt(10); // 10 = the default number of rounds to generate salt.
@@ -41,7 +41,7 @@ router.post('/', async(req, res) => {
 	await user.save();
 	const token = user.generateAuthToken();
 	
-	// we choose only the fields we want. we don't want to pick password.
+	// we choose only the fields we want. we don't want to pick to send back to the client.
 	user = _.pick(user, ['_id', 'name', 'email']);
 	// we send the jwt in the header and the user details in the body
 	res.header('x-auth-token', token).send(user);
