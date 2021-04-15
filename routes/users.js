@@ -9,6 +9,16 @@ const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 
+// get the id from the jwt. malicious client can't send :id and try get other user data
+// router.get('/me', async(req, res) => {
+
+// })
+
+router.get('/', async(req, res) => {
+	const users = await User.find().sort('name');
+	res.send(users);
+});
+
 router.post('/', async(req, res) => {
 	// validate the request. 
 	// if its not valid return 404, bad request.

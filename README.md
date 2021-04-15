@@ -27,3 +27,21 @@ TODO
 ### install config module and create config file ###
 
 ```npm i config@1.29.4```
+
+## Where did I stop? ##
+
+On users.js I am writing this function
+
+```
+// get the id from the jwt. malicious client can't send :id and try get other user data
+router.get('/me', async(req, res) => {
+
+})
+```
+Should continue from lesson 13
+
+### Review again ###
+
+1. React course ---> Forms ---> 6- Handling Multiple Inputs
+
+2. different between property and method in js class
