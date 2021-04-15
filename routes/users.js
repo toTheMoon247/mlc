@@ -39,14 +39,14 @@ router.post('/', async(req, res) => {
 	user.password = await bcrypt.hash(user.password, salt);
 
 	await user.save();
-	const token = user.generateAuthToken();
 	
 	// we choose only the fields we want. we don't want to pick to send back to the client.
-	user = _.pick(user, ['_id', 'name', 'email']);
+	// user = _.pick(user, ['_id', 'firstName', 'lastName', 'email']);
 	// we send the jwt in the header and the user details in the body
+	const token = user.generateAuthToken();
 	res.header('x-auth-token', token)
 		.header("access-control-expose-headers", "x-auth-token") // allow the client access for the x-auth-token header
-	   	.send(user);
+	   	.send(_.pick(user, ['_id', 'firstName', 'lastName', 'email']));
 
 });
 

@@ -41,7 +41,8 @@ const userSchema = new mongoose.Schema({
 // we set it in a function so in the future we can add payload if we want. 
 // user model should generate and handle this. The user model is the information expert for this issue.
 userSchema.methods.generateAuthToken = function() {
-	const token = jwt.sign({ _id: this._id }, config.get("jwtPrivateKey"));
+	const payload = { _id: this._id, email: this.email, firstName:this.firstName, lastName: this.lastName };
+	const token = jwt.sign(payload, config.get("jwtPrivateKey"));
 	return token;
 }
 
