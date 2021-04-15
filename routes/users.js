@@ -44,7 +44,9 @@ router.post('/', async(req, res) => {
 	// we choose only the fields we want. we don't want to pick to send back to the client.
 	user = _.pick(user, ['_id', 'name', 'email']);
 	// we send the jwt in the header and the user details in the body
-	res.header('x-auth-token', token).send(user);
+	res.header('x-auth-token', token)
+		.header("access-control-expose-headers", "x-auth-token") // allow the client access for the x-auth-token header
+	   	.send(user);
 
 });
 
