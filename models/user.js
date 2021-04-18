@@ -46,8 +46,14 @@ userSchema.methods.generateAuthToken = function() {
 	return token;
 }
 
+
 // we compile a user model based on mongoose schema. we create a user class based on the user model 
 const User = mongoose.model('User', userSchema);
+
+// async function getAll() {
+// 	const users = await User.find().sort('name');
+// 	return users;
+// }
 
 function validateUser(user) {
 	const schema = {
